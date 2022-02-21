@@ -38,6 +38,3 @@ class TWSapi(EWrapper, EClient):
     def execDetails(self, reqId, contract, execution):
         print('Order Executed: ', reqId, contract.symbol, contract.secType, contract.currency, execution.execId,
               execution.orderId, execution.shares, execution.lastLiquidity)
-
-
-def getQuote()
