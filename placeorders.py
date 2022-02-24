@@ -21,7 +21,7 @@ def connect(app: TWSapi):
     app.event_connect.wait()
 
 
-def placeBuyLimitOrder(quantity: int, price: float, transmit=True):
+def placeLongLimitOrder(quantity: int, price: float, transmit=True):
     app = TWSapi()
     connect(app)
     oid = app.nextOrderId()
@@ -30,7 +30,7 @@ def placeBuyLimitOrder(quantity: int, price: float, transmit=True):
     app.disconnect()
 
 
-def placeSellLimitOrder(quantity: int, price: float, transmit=True):
+def placeShortLimitOrder(quantity: int, price: float, transmit=True):
     app = TWSapi()
     connect(app)
     oid = app.nextOrderId()
@@ -39,7 +39,7 @@ def placeSellLimitOrder(quantity: int, price: float, transmit=True):
     app.disconnect()
 
 
-def placeBuyMarketOrder(quantity: int, transmit=True):
+def placeLongMarketOrder(quantity: int, transmit=True):
     app = TWSapi()
     connect(app)
     oid = app.nextOrderId()
@@ -48,7 +48,7 @@ def placeBuyMarketOrder(quantity: int, transmit=True):
     app.disconnect()
 
 
-def placeSellMarketOrder(quantity: int, transmit=True):
+def placeShortMarketOrder(quantity: int, transmit=True):
     app = TWSapi()
     connect(app)
     oid = app.nextOrderId()
@@ -110,8 +110,8 @@ def placeShortBracketOrder(quantity: int):
     app.disconnect()
 
 if __name__ == '__main__':
-    placeBuyMarketOrder(100)
+    placeLongMarketOrder(100)
     time.sleep(1)
-    placeSellMarketOrder()
+    placeShortMarketOrder()
 
 

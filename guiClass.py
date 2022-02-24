@@ -7,18 +7,18 @@ import placeorders
 
 class GUI(Tk):
     def longMKTorder(self):
-        placeorders.placeBuyMarketOrder(100)
+        placeorders.placeLongMarketOrder(100)
 
     def shortMKTorder(self):
-        placeorders.placeSellMarketOrder(100)
+        placeorders.placeShortMarketOrder(100)
 
     def longLMTorder(self):
-        price = self.buy_lim_price.get()
-        print("Buy LMT Order @", price)
+        price = float( self.long_lim_price.get() )
+        placeorders.placeLongLimitOrder(100, price)
 
     def shortLMTorder(self):
-        price = self.short_lim_price.get()
-        print("Sell LMT Order @", price)
+        price = float( self.short_lim_price.get() )
+        placeorders.placeShortLimitOrder(100, price)
 
     def longBracketOrder(self):
         placeorders.placeLongBracketOrder(100)
@@ -173,9 +173,16 @@ class GUI(Tk):
         short_bracket_plus_entry.grid(row=2, column=2)
         short_bracket_minus_entry.grid(row=2, column=3)
 
-        for child in self.winfo_children():
-            child.padx = 10
-            child.pady = 10
+
+        # Current  Price
+        self.current_price = StringVar(value="Current Price")
+        current_price_lbl = ttk.Label(self, width=7, padding=10, textvariable=self.current_price )
+        current_price_lbl.grid(row = 2, column=0)
+
+
+        # for child in self.winfo_children():
+        #     child.padx = 10
+        #     child.pady = 10
 
 
 if __name__ == '__main__':
