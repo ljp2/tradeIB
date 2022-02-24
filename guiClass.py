@@ -123,8 +123,22 @@ class GUI(Tk):
             value=[100, 200, 300, 400],
             width=3
         )
-        long_bracket_plus_entry = ttk.Entry(bracframe, width=7, textvariable=self.long_bracket_plus_price_increment)
-        long_bracket_minus_entry = ttk.Entry(bracframe, width=7, textvariable=self.short_bracket_minus_price_increment)
+        long_bracket_plus_entry = ttk.Spinbox(
+            bracframe,
+            textvariable=self.long_bracket_plus_price_increment,
+            from_=0.20,
+            to=2.00,
+            increment=0.05,
+            width=7
+        )
+        long_bracket_minus_entry = ttk.Spinbox(
+            bracframe,
+            textvariable=self.long_bracket_minus_price_increment,
+            from_=0.20,
+            to=2.00,
+            increment=0.05,
+            width=7
+        )
         long_bracket_btn.grid(row=1, column=0, padx=5, pady=5)
         long_bracket_quantity_entry.grid(row=1, column=1)
         long_bracket_plus_entry.grid(row=1, column=2)
@@ -139,13 +153,25 @@ class GUI(Tk):
             width=3
         )
         short_bracket_quantity_entry.grid(row=2, column=1)
-        short_bracket_plus_entry = ttk.Entry(bracframe, width=7, textvariable=self.short_bracket_plus_price_increment)
-        short_bracket_minus_entry = ttk.Entry(bracframe, width=7, textvariable=self.short_bracket_minus_price_increment)
-
+        short_bracket_plus_entry = ttk.Spinbox(
+            bracframe,
+            textvariable=self.short_bracket_plus_price_increment,
+            from_=0.20,
+            to=2.00,
+            increment=0.05,
+            width=7
+        )
+        short_bracket_minus_entry = ttk.Spinbox(
+            bracframe,
+            textvariable=self.short_bracket_minus_price_increment,
+            from_=0.20,
+            to=2.00,
+            increment=0.05,
+            width=7
+        )
         short_bracket_btn.grid(row=2, column=0, padx=5, pady=5)
         short_bracket_plus_entry.grid(row=2, column=2)
         short_bracket_minus_entry.grid(row=2, column=3)
-
 
         for child in self.winfo_children():
             child.padx = 10
