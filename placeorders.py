@@ -68,12 +68,12 @@ def placeLongBracketOrder(quantity: int):
     app.active_fill_price = None
     app.order_filled_event.clear()
     app.placeOrder(oid, contract, order)
-    app.order_filled_event.wait()
+    # app.order_filled_event.wait()
     fill_price = app.active_fill_price
 
     print("ORDER FILLED @ ", fill_price)
 
-    profit_price = fill_price +  0.5
+    profit_price = fill_price +  0.50
     stop_price = fill_price - 0.50
 
     # profit_order_id = app.nextOrderId()
