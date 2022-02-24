@@ -35,27 +35,3 @@ def BuyMarketOrder(quantity: int, transmit=True):
 def SellMarketOrder(quantity: int, transmit=True):
     return MarketOrder('SELL', quantity, transmit=transmit)
 
-def BracketOrdersForLong(parent_oid:int, quantity:int, fill_price:float):
-    profit_price = fill_price -  0.50
-    stop_price = fill_price + 0.50
-    orders = []
-
-    profit_order = Order()
-    profit_order.action = "SELL"
-    profit_order.orderType = "LMT"
-    profit_order.totalQuantity = quantity
-    profit_order.lmtPrice = profit_price
-    profit_order.transmit = True
-    profit_order.parentId = parent_oid
-    orders.append(profit_order)
-
-    stop_order = Order()
-    stop_order.action = 'SELL'
-    stop_order.totalQuantity = quantity
-    stop_order.orderType = 'STP'
-    stop_order.auxPrice = stop_price
-    stop_order.parentId = parent_oid
-    stop_order.transmit = True
-    orders.append(stop_order)
-
-    return orders

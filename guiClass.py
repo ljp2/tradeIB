@@ -7,24 +7,31 @@ import placeorders
 
 class GUI(Tk):
     def longMKTorder(self):
-        placeorders.placeLongMarketOrder(100)
+        quantity = int(self.long_mkt_quantity.get())
+        placeorders.placeLongMarketOrder(quantity)
 
     def shortMKTorder(self):
-        placeorders.placeShortMarketOrder(100)
+        quantity = int(self.short_mkt_quantity.get())
+        placeorders.placeShortMarketOrder(quantity)
 
     def longLMTorder(self):
+        quantity = int(self.long_lim_quantity.get())
         price = float( self.long_lim_price.get() )
-        placeorders.placeLongLimitOrder(100, price)
+        placeorders.placeLongLimitOrder(quantity, price)
 
     def shortLMTorder(self):
+        quantity = int(self.short_lim_quantity.get())
         price = float( self.short_lim_price.get() )
-        placeorders.placeShortLimitOrder(100, price)
+        placeorders.placeShortLimitOrder(quantity, price)
 
-    def longBracketOrder(self):
-        placeorders.placeLongBracketOrder(100)
+    def longMKTplusBracketOrder(self):
+        quantity = int(self.long_bracket_quantity.get())
+        placeorders.placeLongMKTplusBracketOrder(quantity)
 
-    def shortBracketOrder(self):
-        print("shortBracketOrder - NOT YET IMPLEMENTED")
+    def shortMKTplusBracketOrder(self):
+        quantity = int(self.short_bracket_quantity.get())
+        placeorders.placeShortMKTplusBracketOrder(quantity)
+
 
     def __init__(self):
         super().__init__()
@@ -116,7 +123,7 @@ class GUI(Tk):
         brac_minus_lbl = ttk.Label(bracframe, text='Negative Increment').grid(row=0, column=3)
 
         # Long Bracket
-        long_bracket_btn = ttk.Button(bracframe, text="MKT Long + Bracket Order", command=self.longBracketOrder)
+        long_bracket_btn = ttk.Button(bracframe, text="MKT Long + Bracket Order", command=self.longMKTplusBracketOrder)
         long_bracket_quantity_entry = ttk.Spinbox(
             bracframe,
             textvariable=self.long_bracket_quantity,
@@ -145,7 +152,7 @@ class GUI(Tk):
         long_bracket_minus_entry.grid(row=1, column=3)
 
         # Short Bracket
-        short_bracket_btn = ttk.Button(bracframe, text="MKT Short + Bracket Order", command=self.shortBracketOrder)
+        short_bracket_btn = ttk.Button(bracframe, text="MKT Short + Bracket Order", command=self.shortMKTplusBracketOrder)
         short_bracket_quantity_entry = ttk.Spinbox(
             bracframe,
             textvariable=self.short_bracket_quantity,

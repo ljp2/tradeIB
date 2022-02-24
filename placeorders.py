@@ -1,3 +1,4 @@
+import orders
 from twsapp import TWSapi
 from orders import *
 
@@ -57,7 +58,9 @@ def placeShortMarketOrder(quantity: int, transmit=True):
     app.disconnect()
 
 
-def placeLongBracketOrder(quantity: int):
+
+
+def placeLongMKTplusBracketOrder(quantity: int):
     app = TWSapi()
     connect(app)
     oid = app.nextOrderId()
@@ -68,25 +71,56 @@ def placeLongBracketOrder(quantity: int):
     app.active_fill_price = None
     app.order_filled_event.clear()
     app.placeOrder(oid, contract, order)
-    # app.order_filled_event.wait()
+    app.order_filled_event.wait(3)
+    print("THE FILLED EVENT is ",  app.order_filled_event.is_set())
     fill_price = app.active_fill_price
 
     print("ORDER FILLED @ ", fill_price)
 
-    profit_price = fill_price +  0.50
-    stop_price = fill_price - 0.50
+    profit_price = fill_price + 0.2
+    stop_price = fill_price - 0.2
 
-    # profit_order_id = app.nextOrderId()
-    # profit_order = SellLimitOrder(quantity, profit_price, transmit=False)
-    # app.placeOrder(profit_order_id, contract, profit_order)
+    profit_order = Order()
+    profit_order.action = "SELL"
+    profit_order.orderType = "LMT"
+    profit_order.totalQuantity = quantity
+    profit_order.lmtPrice = profit_price
+
+    stop_order = Order()
+    stop_order.action = 'SELL'
+    stop_order.totalQuantity = quantity
+    stop_order.orderType = 'STP'
+    stop_order.auxPrice = stop_price
+
+    ocaGroup = "OCA_" + str(oid)
+    profit_order.ocaGroup = ocaGroup
+    profit_order.ocaType = 2
+    stop_order.ocaGroup = ocaGroup
+    stop_order.ocaType = 2
+
+    app.placeOrder(app.nextOrderId(), contract, stop_order)
+    app.placeOrder(app.nextOrderId(), contract, profit_order)
 
     app.disconnect()
 
-def placeShortBracketOrder(quantity: int):
+
+
+
+
+
+
+
+
+
+
+
+
+
+def placeShortMKTplusBracketOrder(quantity: int):
     app = TWSapi()
     connect(app)
     oid = app.nextOrderId()
-    order = BuyMarketOrder(quantity, transmit=True)
+    order = SellMarketOrder(quantity, transmit=True)
 
     app.active_oid = oid
     app.active_quantity = quantity
@@ -98,14 +132,29 @@ def placeShortBracketOrder(quantity: int):
 
     print("ORDER FILLED @ ", fill_price)
 
-    orders = BracketOrdersForLong(oid, quantity, fill_price)
+    profit_price = fill_price - 0.2
+    stop_price = fill_price + 0.2
 
-    for order in orders:
-        app.placeOrder(app.nextOrderId(), contract, order)
+    profit_order = Order()
+    profit_order.action = "BUY"
+    profit_order.orderType = "LMT"
+    profit_order.totalQuantity = quantity
+    profit_order.lmtPrice = profit_price
 
-    # profit_order_id = app.nextOrderId()
-    # profit_order = SellLimitOrder(quantity, profit_price, transmit=False)
-    # app.placeOrder(profit_order_id, contract, profit_order)
+    stop_order = Order()
+    stop_order.action = 'BUY'
+    stop_order.totalQuantity = quantity
+    stop_order.orderType = 'STP'
+    stop_order.auxPrice = stop_price
+
+    ocaGroup = "OCA_" + str(oid)
+    profit_order.ocaGroup = ocaGroup
+    profit_order.ocaType = 2
+    stop_order.ocaGroup = ocaGroup
+    stop_order.ocaType = 2
+
+    app.placeOrder(app.nextOrderId(), contract, stop_order)
+    app.placeOrder(app.nextOrderId(), contract, profit_order)
 
     app.disconnect()
 

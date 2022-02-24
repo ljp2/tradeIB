@@ -13,9 +13,9 @@ class TWSapi(EWrapper, EClient):
         self.order_filled_event = threading.Event()
         self.order_filled_event.clear()
 
-        self.active_oid: int = 0
-        self.active_quantity: int = 0
-        self.active_fill_price: float = 0
+        self.active_oid: int = None
+        self.active_quantity: int = None
+        self.active_fill_price: float = None
 
     def nextValidId(self, orderId: int):
         super().nextValidId(orderId)
@@ -31,12 +31,14 @@ class TWSapi(EWrapper, EClient):
 
     def orderStatus(self, orderId, status, filled, remaining, avgFullPrice, permId, parentId, lastFillPrice, clientId,
                     whyHeld, mktCapPrice):
-        print('orderStatus - orderid:', orderId, 'status:', status, 'filled', filled, 'remaining', remaining,
-              'lastFillPrice', lastFillPrice)
+        if orderId == self.active_oid and filled == int(self.active_quantity):
 
-        if orderId == self.active_oid and filled == self.active_quantity:
             self.order_filled_event.set()
             self.active_fill_price = lastFillPrice
+            print ("SET THE EVENT")
+        else:
+            print('orderStatus - orderid:', orderId, 'status:', status, 'filled', filled, 'remaining', remaining,
+                  'lastFillPrice', lastFillPrice)
 
     def openOrder(self, orderId, contract, order, orderState):
         print('openOrder id:', orderId, contract.symbol, contract.secType, '@', contract.exchange, ':', order.action,
