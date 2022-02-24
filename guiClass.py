@@ -40,12 +40,12 @@ class GUI(Tk):
 
         # LONG MKT
         long_mkt_quantity_btn = ttk.Button(mktframe, text="Long MKT Order", command=self.longMKTorder)
-        # long_mkt_quantity_entry = ttk.Entry(mktframe, width=3, textvariable=self.long_mkt_quantity)
+        # long_mkt_quantity_entry = ttk.Entry(mktframe, width=4, textvariable=self.long_mkt_quantity)
         long_mkt_quantity_entry = ttk.Spinbox(
             mktframe,
             textvariable=self.long_mkt_quantity,
             value=[100, 200, 300, 400],
-            width=3
+            width=4
         )
         long_mkt_quantity_btn.grid(row=1, column=0, padx=5, pady=5)
         long_mkt_quantity_entry.grid(row=1, column=1)
@@ -56,7 +56,7 @@ class GUI(Tk):
             mktframe,
             textvariable=self.short_mkt_quantity,
             value=[100, 200, 300, 400],
-            width=3
+            width=4
         )
         short_mkt_quantity_btn.grid(row=2, column=0, padx=5, pady=5)
         short_mkt_quantity_entry.grid(row=2, column=1)
@@ -80,7 +80,7 @@ class GUI(Tk):
             lmtframe,
             textvariable=self.long_lim_quantity,
             value=[100, 200, 300, 400],
-            width=3
+            width=4
         )
         long_lim_price_entry = ttk.Entry(lmtframe, width=7, textvariable=self.long_lim_price)
         long_lmt_quantity_btn.grid(row=1, column=0, padx=5, pady=5)
@@ -93,7 +93,7 @@ class GUI(Tk):
             lmtframe,
             textvariable=self.short_lim_quantity,
             value=[100, 200, 300, 400],
-            width=3
+            width=4
         )
         short_lim_price_entry = ttk.Entry(lmtframe, width=7, textvariable=self.short_lim_price)
         short_lmt_quantity_btn.grid(row=2, column=0, padx=5, pady=5)
@@ -121,7 +121,7 @@ class GUI(Tk):
             bracframe,
             textvariable=self.long_bracket_quantity,
             value=[100, 200, 300, 400],
-            width=3
+            width=4
         )
         long_bracket_plus_entry = ttk.Spinbox(
             bracframe,
@@ -150,7 +150,7 @@ class GUI(Tk):
             bracframe,
             textvariable=self.short_bracket_quantity,
             value=[100, 200, 300, 400],
-            width=3
+            width=4
         )
         short_bracket_quantity_entry.grid(row=2, column=1)
         short_bracket_plus_entry = ttk.Spinbox(
