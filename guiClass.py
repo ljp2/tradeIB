@@ -71,7 +71,7 @@ class GUI(Tk):
         # LMT Frame
         self.long_lim_price = StringVar()
         self.long_lim_quantity = StringVar(value=100)
-        self.short_lim_price = StringVar()
+        self.short_lim_price = StringVar(value=0)
         self.short_lim_quantity = StringVar(value=100)
 
         lmtframe = ttk.Labelframe(self, text='LMT orders')
@@ -89,7 +89,14 @@ class GUI(Tk):
             value=[100, 200, 300, 400],
             width=4
         )
-        long_lim_price_entry = ttk.Entry(lmtframe, width=7, textvariable=self.long_lim_price)
+        long_lim_price_entry = ttk.Spinbox(
+            lmtframe,
+            from_= 0,
+            to=1000,
+            increment=0.5,
+            textvariable=self.long_lim_price,
+            width=7
+        )
         long_lmt_quantity_btn.grid(row=1, column=0, padx=5, pady=5)
         long_lmt_quantity_entry.grid(row=1, column=1)
         long_lim_price_entry.grid(row=1, column=2)
